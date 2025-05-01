@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-adminer
+  labels:
+    app: {{ .Release.Name }}-adminer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-adminer
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-adminer
+    spec:
+      containers:
+        - name: {{ .Values.adminer.containerName }}
+          image: {{ .Values.adminer.image }}
+          ports:
+            - containerPort: {{ .Values.adminer.ports[0].containerPort }}

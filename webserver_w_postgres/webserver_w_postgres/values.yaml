@@ -1,0 +1,37 @@
+db:
+  image: postgres:17.4
+  containerName: db
+  restartPolicy: Always
+  shmSize: 128Mi
+  environment:
+    POSTGRES_PASSWORD: mypw
+    POSTGRES_USER: myuser
+  ports:
+    - name: postgres
+      containerPort: 5432
+      hostPort: 8082
+  healthcheck:
+    command: ["pg_isready", "-U", "myuser"]
+    interval: 5s
+    timeout: 5s
+    retries: 5
+
+adminer:
+  image: adminer:5.2.1
+  containerName: adminer
+  restartPolicy: Always
+  ports:
+    - name: adminer
+      containerPort: 8080
+      hostPort: 8080
+
+webserver:
+  image: tamasujvari/webserver_w_postgress_webserver:amd
+  containerName: webserver
+  ports:
+    - name: webserver
+      containerPort: 8080
+      hostPort: 8081
+  dependsOn:
+    db:
+      condition: service_healthy

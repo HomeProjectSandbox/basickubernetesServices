@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-db
+  labels:
+    app: {{ .Release.Name }}-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-db
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-db
+    spec:
+      containers:
+        - name: {{ .Values.db.containerName }}
+          image: {{ .Values.db.image }}
+          env:
+            - name: POSTGRES_PASSWORD
+              value: {{ .Values.db.environment.POSTGRES_PASSWORD }}
+            - name: POSTGRES_USER
+              value: {{ .Values.db.environment.POSTGRES_USER }}
+          ports:
+            - containerPort: {{ .Values.db.ports[0].containerPort }}
+          livenessProbe:
+            exec:
+              command: {{ .Values.db.healthcheck.command }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
