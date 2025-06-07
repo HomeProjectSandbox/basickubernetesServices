@@ -18,4 +18,4 @@ spec:
         - name: {{ .Values.adminer.containerName }}
           image: {{ .Values.adminer.image }}
           ports:
-            - containerPort: {{ .Values.adminer.ports[0].containerPort }}
+            - containerPort: {{ .Values.adminer.ports.containerPort }}

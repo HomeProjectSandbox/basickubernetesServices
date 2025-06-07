@@ -18,4 +18,4 @@ spec:
         - name: {{ .Values.webserver.containerName }}
           image: {{ .Values.webserver.image }}
           ports:
-            - containerPort: {{ .Values.webserver.ports[0].containerPort }}
+            - containerPort: {{ .Values.webserver.ports.containerPort }}

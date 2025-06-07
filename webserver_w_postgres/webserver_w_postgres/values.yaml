@@ -7,9 +7,9 @@ db:
     POSTGRES_PASSWORD: mypw
     POSTGRES_USER: myuser
   ports:
-    - name: postgres
-      containerPort: 5432
-      hostPort: 8082
+    name: postgres
+    containerPort: 5432
+    hostPort: 8082
   healthcheck:
     command: ["pg_isready", "-U", "myuser"]
     interval: 5s
@@ -21,17 +21,17 @@ adminer:
   containerName: adminer
   restartPolicy: Always
   ports:
-    - name: adminer
-      containerPort: 8080
-      hostPort: 8080
+    name: adminer
+    containerPort: 8080
+    hostPort: 8080
 
 webserver:
   image: tamasujvari/webserver_w_postgress_webserver:amd
   containerName: webserver
   ports:
-    - name: webserver
-      containerPort: 8080
-      hostPort: 8081
+    name: webserver
+    containerPort: 8080
+    hostPort: 8081
   dependsOn:
     db:
       condition: service_healthy

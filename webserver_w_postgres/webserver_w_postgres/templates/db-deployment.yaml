@@ -23,7 +23,7 @@ spec:
             - name: POSTGRES_USER
               value: {{ .Values.db.environment.POSTGRES_USER }}
           ports:
-            - containerPort: {{ .Values.db.ports[0].containerPort }}
+            - containerPort: {{ .Values.db.ports.containerPort }}
           livenessProbe:
             exec:
               command: {{ .Values.db.healthcheck.command }}

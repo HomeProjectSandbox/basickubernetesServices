@@ -7,6 +7,6 @@ spec:
     app: {{ .Release.Name }}-webserver
   ports:
     - protocol: TCP
-      port: {{ .Values.webserver.ports[0].hostPort }}
-      targetPort: {{ .Values.webserver.ports[0].containerPort }}
+      port: {{ .Values.webserver.ports.hostPort }}
+      targetPort: {{ .Values.webserver.ports.containerPort }}
   
