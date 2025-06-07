@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-webserver-config
+data:
+  config.yaml: |
+    app:
+      dbName: "{{ .Release.Name }}-db.{{ .Release.Namespace }}.svc.cluster.local"
+      dbPort: {{ .Values.db.ports.hostPort | quote }}
+      dbUser: {{ .Values.db.environment.POSTGRES_USER | quote }}
+      dbPw: {{ .Values.db.environment.POSTGRES_PASSWORD | quote }}
